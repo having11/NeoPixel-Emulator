@@ -8,12 +8,15 @@ class Adafruit_NeoPixel():
         self.pin = pixel_pin
         self.pixel_type = pixel_type
         self.brightness = 100
-        self.gui = NeoPixel_Emulator()
-    def begin(self):
+    def begin(self, draw_matrix=False, width=0, height=0, window_w=1765, window_h=400):
+        self.gui = NeoPixel_Emulator(window_w=window_w, window_h=window_h)
         self.pixel_list = list()
         for pixel in range(self.pixel_number):
             self.pixel_list.append(Pixel(pixel))
-        self.gui.draw_LEDs(self.pixel_number)
+        if draw_matrix:
+            self.gui.draw_LED_matrix(width, height)
+        else:
+            self.gui.draw_LEDs(self.pixel_number)
         self.gui.render()
     def show(self):
         #for pixel in self.pixel_list:
@@ -28,6 +31,8 @@ class Adafruit_NeoPixel():
         return (r, g, b)
     def fill(self, color, start, count):
         if start > self.pixel_number:
+            return False
+        if start + count > self.pixel_number:
             return False
         else:
             for pixel in range(start,count+start):
