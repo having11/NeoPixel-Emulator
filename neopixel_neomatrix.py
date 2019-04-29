@@ -22,7 +22,10 @@ class Adafruit_NeoMatrix(Adafruit_GFX):
         self.pixels.begin(draw_matrix=True,width=self.width,height=self.height, window_w=needed_w, window_h=needed_h)
     def drawPixel(self, x, y, color):
         x, y = self.mapPixelToRotation(x, y)
-        self.pixels.setPixelColor(y*self.width+x,color)
+        if x == None or y == None:
+            pass
+        else:
+            self.pixels.setPixelColor(y*self.width+x,color)
     def show(self):
         self.pixels.gui.render()
         event = self.pixels.gui.dispatch_events()
@@ -37,11 +40,11 @@ bitmap_array = [0x00, 0x84>>1, 0x84>>1, 0x00, 0x00, 0x84>>1, 0x78>>1, 0x00]
 
 if __name__ == "__main__":
     matrix = Adafruit_NeoMatrix()
-    matrix.create_matrix(10,10,6,matrix.positions["NEO_MATRIX_TOP"]+matrix.positions["NEO_MATRIX_LEFT"]+\
+    matrix.create_matrix(15,10,6,matrix.positions["NEO_MATRIX_TOP"]+matrix.positions["NEO_MATRIX_LEFT"]+\
         matrix.positions["NEO_MATRIX_COLUMNS"]+matrix.positions["NEO_MATRIX_PROGRESSIVE"])
     matrix.begin()
     matrix.show()
-    #matrix.setRotation(0)
+    matrix.setRotation(0)
     matrix.setBrightness(90)
     matrix.drawPixel(0,0,(200,12,70))
     matrix.show()
@@ -56,6 +59,9 @@ if __name__ == "__main__":
     matrix.show()
     matrix.delay(2000)
     matrix.fillCircle(5,5,3,(0,0,255))
+    matrix.show()
+    matrix.delay(2000)
+    matrix.drawCircle(10,10,8,(0,255,0))
     matrix.show()
     matrix.delay(2000)
     matrix.fillRoundRect(0,0,10,6,3,(0,50,150))

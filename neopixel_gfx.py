@@ -10,7 +10,7 @@ class Adafruit_GFX():
         pass
     def mapPixelToRotation(self, x, y):
         if (x < 0) or (y < 0) or (x >= self.width) or (y >= self.height):
-            return False
+            return None, None
         t = 0
         if self.rotation == 1:
             t = x
