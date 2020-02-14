@@ -72,6 +72,5 @@ if __name__ == "__main__":
     matrix.delay(2000)
     #matrix.clearScreen()
     matrix.drawBitmap(0,0,bitmap_array,8,8,(0,0,0),background_color=(200,200,200))
-
-    while 1:
-        matrix.show()
+    matrix.show()
+    matrix.delay(3000)
