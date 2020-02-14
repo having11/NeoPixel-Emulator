@@ -4,8 +4,6 @@ from neopixel_effects import NeoPixel_Effects
 def run():
     pixels = Adafruit_NeoPixel(51,6,"NEO_GRB + NEO_KHZ800")
     effects = NeoPixel_Effects(pixels)
-    pixels.gui.render()
-    event = pixels.gui.dispatch_events()
     pixels.begin()
     pixels.setBrightness(100)
     pixels.setPixelColor(2,pixels.Color(255,200,10))
