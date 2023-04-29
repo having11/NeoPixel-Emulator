@@ -11,19 +11,21 @@ class NeoPixel_Emulator(pyglet.window.Window):
         self.color_group = pyglet.graphics.OrderedGroup(1)
         self.alive = 1
     def draw_LEDs(self, led_number):
+        led_img = pyglet.image.load('ws2812b.png')
+        circle_img = pyglet.image.load('circle.png')
         for led in range(led_number):
-            img = pyglet.image.load('ws2812b.png')
-            self.sprites.append(pyglet.sprite.Sprite(img=img,batch=self.batch, x=(led-50*(led//50))*35, y=self.height-34-((led//50)*34), group=self.led_group))
-            self.color_sprites.append(pyglet.sprite.Sprite(img=pyglet.image.load('circle.png'),batch=self.batch,x=(led-50*(led//50))*35,y=self.height-34-((led//50)*34)-5,group=self.color_group))
+            self.sprites.append(pyglet.sprite.Sprite(img=led_img,batch=self.batch, x=(led-50*(led//50))*35, y=self.height-34-((led//50)*34), group=self.led_group))
+            self.color_sprites.append(pyglet.sprite.Sprite(img=circle_img,batch=self.batch,x=(led-50*(led//50))*35,y=self.height-34-((led//50)*34)-5,group=self.color_group))
             self.sprites[led].scale = .1
             self.color_sprites[led].color = (0,0,0)
             #print(self.sprites[led].position)
     def draw_LED_matrix(self, width, height):
+        led_img = pyglet.image.load('ws2812b.png')
+        circle_img = pyglet.image.load('circle.png')
         for y in range(height):
             for x in range(width):
-                img = pyglet.image.load('ws2812b.png')
-                self.sprites.append(pyglet.sprite.Sprite(img=img,batch=self.batch, x=x*35, y=self.height-34-(y*34), group=self.led_group))
-                self.color_sprites.append(pyglet.sprite.Sprite(img=pyglet.image.load('circle.png'),batch=self.batch,x=x*35,y=self.height-34-(y*34)-5,group=self.color_group))
+                self.sprites.append(pyglet.sprite.Sprite(img=led_img,batch=self.batch, x=x*35, y=self.height-34-(y*34), group=self.led_group))
+                self.color_sprites.append(pyglet.sprite.Sprite(img=circle_img,batch=self.batch,x=x*35,y=self.height-34-(y*34)-5,group=self.color_group))
                 self.sprites[y*width+x].scale = .1
                 self.color_sprites[y*width+x].color = (0,0,0)
     def map(self,input_val,in_min,in_max,out_min,out_max):
